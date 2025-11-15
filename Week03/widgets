@@ -1,0 +1,98 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Common Widgets Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: HomeScreen(),
+    );
+  }
+}
+
+class HomeScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Flutter Widgets Example'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: ListView(
+          children: [
+            // Text
+            Text(
+              'Welcome to Flutter UI!',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 20),
+
+            // Image
+            Image.network(
+              'https://flutter.dev/assets/homepage/carousel/slide_1-bg-opaque-0b5b38bfc1b6b6f7f27146bbd6f59a80ddfc126eeb9a5126d2e25d90eb21406d.png',
+              height: 150,
+            ),
+            SizedBox(height: 20),
+
+            // Container
+            Container(
+              height: 100,
+              color: Colors.amber,
+              child: Center(
+                child: Text(
+                  'This is a Container',
+                  style: TextStyle(fontSize: 18, color: Colors.white),
+                ),
+              ),
+            ),
+            SizedBox(height: 20),
+
+            // Row with Buttons
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Text('Button 1'),
+                ),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Text('Button 2'),
+                ),
+              ],
+            ),
+            SizedBox(height: 20),
+
+            // Column with Cards
+            Column(
+              children: [
+                Card(
+                  child: ListTile(
+                    leading: Icon(Icons.favorite, color: Colors.red),
+                    title: Text('Card 1'),
+                    subtitle: Text('This is a subtitle'),
+                  ),
+                ),
+                Card(
+                  child: ListTile(
+                    leading: Icon(Icons.star, color: Colors.yellow),
+                    title: Text('Card 2'),
+                    subtitle: Text('Another subtitle'),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

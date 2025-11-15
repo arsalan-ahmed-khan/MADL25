@@ -1,0 +1,92 @@
+import 'package:flutter/material.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
+
+void main() {
+  runApp(IconsImagesChartsApp());
+}
+
+class IconsImagesChartsApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Icons, Images & Charts Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: DemoScreen(),
+    );
+  }
+}
+
+class DemoScreen extends StatelessWidget {
+  final List<charts.Series> seriesList = _createSampleData();
+
+  static List<charts.Series<ChartData, String>> _createSampleData() {
+    final data = [
+      ChartData('Mon', 5),
+      ChartData('Tue', 25),
+      ChartData('Wed', 100),
+      ChartData('Thu', 75),
+      ChartData('Fri', 55),
+    ];
+
+    return [
+      charts.Series<ChartData, String>(
+        id: 'Sales',
+        domainFn: (ChartData sales, _) => sales.day,
+        measureFn: (ChartData sales, _) => sales.value,
+        data: data,
+        colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
+      )
+    ];
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Icons, Images & Charts'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: ListView(
+          children: [
+            // Icons
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Icon(Icons.home, size: 40, color: Colors.blue),
+                Icon(Icons.favorite, size: 40, color: Colors.red),
+                Icon(Icons.star, size: 40, color: Colors.amber),
+              ],
+            ),
+            SizedBox(height: 20),
+
+            // Images
+            Image.network(
+              'https://flutter.dev/assets/homepage/carousel/slide_1-bg-opaque-0b5b38bfc1b6b6f7f27146bbd6f59a80ddfc126eeb9a5126d2e25d90eb21406d.png',
+              height: 150,
+            ),
+            SizedBox(height: 20),
+
+            // Charts
+            SizedBox(
+              height: 200,
+              child: charts.BarChart(
+                seriesList,
+                animate: true,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ChartData {
+  final String day;
+  final int value;
+
+  ChartData(this.day, this.value);
+}
